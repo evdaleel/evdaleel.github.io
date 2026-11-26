@@ -26,7 +26,8 @@ jobs:
       - name: Unpack site source
         run: |
           mkdir -p work
-          unzip -o ./*site-src.zip -d work
+          cat b64/part* | base64 -d > site-src.zip
+          unzip -o site-src.zip -d work
       - name: Refresh news (keeps old news if feeds fail)
         working-directory: work
         run: python fetchnews.py || echo "news refresh failed, keeping previous"
